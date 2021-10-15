@@ -27,7 +27,7 @@ const userControls = {
         })
         .populate({
             path: 'friends',
-            select: '-__v'
+            select: '-__v',
         })
         .select('-__v')
         .then(dbUsersData => {
@@ -41,6 +41,25 @@ const userControls = {
             console.log(err);
             res.status(400).json(err)
         })
-    }
+    },
+    updateUser({ params, body }, res) {
+        User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+          .then(dbUsersData => {
+            if (!dbUsersData) {
+              res.status(404).json({ message: 'No user can be updated!' });
+              return;
+            }
+            res.json(dbUsersData);
+          })
+          .catch(err => res.json(err));
+      },
+      deleteUser({ params }, res) {
+        User.findOneAndDelete({ _id: params.id })
+          .then(dbUsersData => res.json(dbUsersData))
+          .catch(err => res.json(err));
+      }
 
 }
+
+
+module.exports = userControls;
