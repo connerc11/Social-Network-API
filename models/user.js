@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
+// const moment = require('moment');
 
-const userSchema = new Schema ({
+const userSchema = new Schema({
     username: {
         type: String,
         unique: true,
@@ -11,22 +12,22 @@ const userSchema = new Schema ({
         type: String,
         unique: true,
         required: true,
-        match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/],
+        trim: true,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/],
     },
     thoughts: [{
         type: Schema.Types.ObjectId,
-        ref: "thought",
+        ref: "Thought",
     }],
     friends: [{
         type: Schema.Types.ObjectId,
-        ref: "user"
+        ref: "User"
     }],
 
 },
 {
     toJSON: {
         virtuals: true,
-        getters: true,
     },
     id: false,
 });
@@ -35,6 +36,6 @@ userSchema.virtual('friendCount').get(function() {
     return this.friends.length;
 });
 
-const Users = model('Users', userSchema)
+const User = model('User', userSchema)
 
-module.exports = Users;
+module.exports = User;

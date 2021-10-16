@@ -6,18 +6,14 @@ const PORT = process.env.PORT || 3001;
 
 const { User } = require('./models');
 
-app.use(require('/routes'));
+app.use(require('./routes'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/virtualsdb', {
-  useFindAndModify: false,
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/virtualsdb')
+  
 
-mongoose.set('debug', true);
 
 app.listen(PORT, () => console.log(`local host :${PORT}`));

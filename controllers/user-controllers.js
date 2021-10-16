@@ -1,5 +1,5 @@
 const { User } = require ('../models');
-const { population, db } = require("../models/user");
+const { populate } = require("../models/User")
 
 const userControls = {
     createUser({body}, res) {
@@ -20,7 +20,7 @@ const userControls = {
         })
     },
     findUserbyId({ params }, res) {
-        User.findOne({_id: parms.id})
+        User.findOne({_id: params.id})
         .populate({
             path: 'thoughts',
             select: '-__v',
@@ -59,7 +59,7 @@ const userControls = {
           .catch(err => res.json(err));
       }
 
-}
+};
 
 
 module.exports = userControls;
