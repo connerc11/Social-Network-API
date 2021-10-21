@@ -1,4 +1,5 @@
-const { Thought, User} = require('../models');
+const { Thought, User, Types } = require('../models');
+const mongoose = require('mongoose')
 
 const thoughtsController = {
     createThought({params, body}, res) {
@@ -21,7 +22,7 @@ const thoughtsController = {
             select: '_v'
         })
         .select('-__v')
-        .then(dbThoughtsData => res.json(dbThoughtsData))
+        .then(dbThoughtData => res.json(dbThoughtData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err)
