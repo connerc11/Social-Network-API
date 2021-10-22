@@ -2,6 +2,7 @@ const { User, Types } = require('../models');
 const mongoose = require('mongoose');
 
 const userControls = {
+    //test and ran 
     findUsers(req, res) {
         User.find({})
         .populate({
@@ -16,6 +17,7 @@ const userControls = {
             res.status(500).json(err)
         })
     },
+    //tested and works
     createUser({ body }, res) {
         User.create(body)
         .then(dbUserData => {
@@ -24,6 +26,7 @@ const userControls = {
         })
         .catch(err => res.status(400).json(err));
     },
+    //tested and works
     findUserbyId({ params }, res) {
         User.findOne({ _id: params.id})
         .populate({
@@ -47,6 +50,7 @@ const userControls = {
             res.status(400).json(err)
         })
     },
+    //tested and worked
     updateUser({ params, body }, res) {
         User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
           .then(dbUserData => {
@@ -58,11 +62,13 @@ const userControls = {
           })
           .catch(err => res.json(err));
       },
+      //tested and worked
       deleteUser({ params }, res) {
         User.findOneAndDelete({ _id: params.id })
           .then(dbUserData => res.json(dbUserData))
           .catch(err => res.json(err));
       },
+      //tested and worked
       addNewFriend({ params }, res) {
           User.findOneAndUpdate(
               { _id: params.id },
@@ -77,9 +83,10 @@ const userControls = {
           })
           .catch(err => res.status(400).json(err));
       },
+      //tested doesn't delete friend 
       deleteFriend({ params }, res) {
-    User.findByIdAndUpdate({ _id: params.id },
-    {$pull: { friends: params.friends }}, 
+    User.findOneAndUpdate({ _id: params.id },
+    {$pull: { friends: params.friendId }}, 
     { runValidators: true})
     .then(dbUserData => {
         if (!dbUserData) {

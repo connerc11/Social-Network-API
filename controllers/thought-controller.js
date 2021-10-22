@@ -2,10 +2,11 @@ const { Thought, User, Types } = require('../models');
 const mongoose = require('mongoose')
 
 const thoughtsController = {
+    //code ran
     createThought({params, body}, res) {
         Thought.create(body)
         .then(({_id}) => {
-            return User.findOneAndUpdate({_id: params.userId}, {$push: {thoughts: _id}}, {new: true});
+            return User.findOneAndUpdate({username: body.username}, {$push: {thoughts: _id}}, {new: true});
         })
         .then(dbThoughtData => {
             if (!dbThoughtData) {
@@ -15,13 +16,9 @@ const thoughtsController = {
         res.json(dbThoughtData);
     }).catch(err => res.json(err));
 },
+//code ran 
     findThought(req, res) {
         Thought.find({})
-        .populate({
-            path: 'user',
-            select: '_v'
-        })
-        .select('-__v')
         .then(dbThoughtData => res.json(dbThoughtData))
         .catch(err => {
             console.log(err);
@@ -30,11 +27,6 @@ const thoughtsController = {
     },
     findThoughtbyId({ params }, res) {
         Thought.findOne({_id: params.id})
-        .populate({
-            path: 'user',
-            select: '-__v',
-        })
-        .select('-__v')
         .then(dbThoughtData => {
             if(!dbThoughtData) {
                 res.status(404).json({message: 'No thought found with ID'})
