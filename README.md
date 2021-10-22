@@ -22,7 +22,7 @@
   ![badge](https://img.shields.io/badge/license--blueviolet)
   This project was made without a license.
   ## Contributing
-  :innocent: PR's welcome
+  :innocent: Anyone can add onto the project!
   ## Tests
   :exclamation: 
     Run the application and create some users. Then give those users some friends and try to create some thoughts. Test their thoughts by adding some reactions!
@@ -34,4 +34,3 @@ https://github.com/connerc11/Social-Network-API
   :octocat: Find me on GitHub: [connerc11](https://github.com/connerc11)<br />
   <br />
   :speech_balloon: Email: cccochrane1@knights.ucf.edu<br /><br />
-:eyes::eyes::eyes:_
