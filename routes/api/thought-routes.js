@@ -5,7 +5,9 @@ const {
     findThoughtbyId,
     findThought,
     updateThought,
-    deleteThought
+    deleteThought,
+    createReaction,
+    removeReaction
 
 } = require('../../controllers/thought-controller');
 
